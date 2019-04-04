@@ -6,3 +6,9 @@
 [ ] Implement a Apache spark job, which process data from kafka
 [ ] Implement a Apache spark job, which uses grpahix
 [ ] Implement a python stream processing job, which process the data using KSQL
+
+
+https://www.pavanpkulkarni.com/blog/13-spark-on-docker/
+https://medium.com/@thiagolcmelo/submitting-a-python-job-to-apache-spark-on-docker-b2bd19593a06
+
+https://towardsdatascience.com/how-does-apache-spark-run-on-a-cluster-974ec2731f20
