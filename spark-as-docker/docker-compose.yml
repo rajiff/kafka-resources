@@ -1,8 +1,48 @@
 version: '3'
 
 services:
-  spark-standalone:
+  sparkmaster:
     image: spark-standalone:2.4.0
     build: ./
-    entrypoint:
-      - /bin/bash
+    environment:
+      MASTER: spark://sparkmaster:7077
+      SPARK_CONF_DIR: /conf
+      SPARK_PUBLIC_DNS: localhost
+    hostname: sparkmaster
+    expose:
+      - 7001
+      - 7002
+      - 7003
+      - 7004
+      - 7005
+      - 7077
+      - 6066
+    ports:
+      - 4040:4040
+      - 6066:6066
+      - 7077:7077
+      - 8080:8080      
+    command: /spark/bin/spark-class org.apache.spark.deploy.master.Master -h sparkmaster
+
+  sparkworker01:
+    image: spark-standalone:2.4.0
+    build: ./
+    environment:
+      SPARK_CONF_DIR: /conf
+      SPARK_WORKER_CORES: 2
+      SPARK_WORKER_MEMORY: 1g
+      SPARK_WORKER_PORT: 8881
+      SPARK_WORKER_WEBUI_PORT: 8081
+      SPARK_PUBLIC_DNS: localhost
+    hostname: sparkworker01
+    links:
+      - sparkmaster
+    expose:
+      - 7012
+      - 7013
+      - 7014
+      - 7015
+      - 8881
+    ports:
+      - 8081:8081   
+    command: /spark/bin/spark-class org.apache.spark.deploy.worker.Worker spark://sparkmaster:7077
