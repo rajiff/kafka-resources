@@ -25,5 +25,8 @@ RUN python3 --version
 RUN mkdir -p /user/spark && chown -R root:root /user/spark
 RUN mkdir -p /conf && chown -R root:root /conf
 
+# Python by default has installed only as python3, hence create an aliased executable link for it
+RUN ln /usr/bin/python /usr/bin/python3
+
 # CMD ["/bin/bash"]
 CMD ["/spark/bin/spark-class", "org.apache.spark.deploy.master.Master"]
